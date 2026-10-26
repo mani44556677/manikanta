@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: release-status
+  namespace: showcase
+spec:
+  podSelector:
+    matchLabels:
+      app: release-status
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              access: release-status
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress: []
